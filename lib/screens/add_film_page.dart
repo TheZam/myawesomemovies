@@ -50,7 +50,7 @@ class AddFilmPage extends StatelessWidget {
                 );
 
                 // Utilisez votre Cubit pour ajouter le film
-                BlocProvider.of<FilmBloc>(context).ajouterFilm(nouveauFilm);
+                BlocProvider.of<FilmBloc>(context).addFilm(nouveauFilm);
 
                 // Revenir à la page d'accueil après l'ajout
                 Navigator.pop(context);

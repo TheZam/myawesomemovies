@@ -3,12 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/blocs/film_bloc.dart';
 import 'package:flutter_projects/models/film.dart';
 import 'package:flutter_projects/screens/add_film_page.dart';
+import 'package:flutter_projects/theme/pp_colors.dart';
 
 class HomePage extends StatelessWidget {
+  late FilmBloc _filmBloc;
+
   @override
   Widget build(BuildContext context) {
+    _filmBloc = BlocProvider.of<FilmBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: PpColors.green,
         title: Text('Ma Bibliothèque de Films'),
       ),
       body: BlocBuilder<FilmBloc, List<Film>>(
@@ -44,7 +50,7 @@ class HomePage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => BlocProvider.value(
-                value: BlocProvider.of<FilmBloc>(context),
+                value: _filmBloc,
                 child: AddFilmPage(),
               ),
             ),

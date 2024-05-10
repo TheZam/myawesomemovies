@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_projects/blocs/film_bloc.dart';
+import 'package:flutter_projects/models/film.dart';
 import 'package:flutter_projects/screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-            color: Color(0xFFFFFFFF),
-            title: 'Home screen',
-            home: HomeScreen()
-        );
+    return MaterialApp(
+      title: 'Ma Bibliothèque de Films',
+      home: BlocProvider(
+        create: (context) => FilmBloc(), // Créer le FilmBloc
+        child: HomePage(),
+      ),
+    );
   }
 }

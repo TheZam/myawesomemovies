@@ -1,34 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_projects/blocs/film_bloc.dart';
+import 'package:flutter_projects/models/film.dart';
+import 'package:flutter_projects/screens/add_film_page.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: const Color(0xFFFFFFFF),
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text('My movies'),
-            ),
-            body: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Cc',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Ma Bibliothèque de Films'),
+      ),
+      body: BlocBuilder<FilmBloc, List<Film>>(
+        builder: (context, films) {
+          if (films.isEmpty) {
+            return Center(
+              child: Text('Aucun film n\'a été ajouté.'),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: films.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    // Naviguer vers la page de détails du film lorsque l'utilisateur appuie sur un film
+                  },
+                  child: Card(
+                    child: ListTile(
+                      title: Text(films[index].titre),
+                      subtitle: Text(films[index].description),
+                      trailing: Text('${films[index].notation} étoiles'),
+                    ),
                   ),
-                ],
+                );
+              },
+            );
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BlocProvider.value(
+                value: BlocProvider.of<FilmBloc>(context),
+                child: AddFilmPage(),
               ),
-            ),),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

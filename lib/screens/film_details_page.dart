@@ -19,7 +19,7 @@ class FilmDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 350,
               child: Image.network(
                 film.imageUrl,

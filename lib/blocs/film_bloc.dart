@@ -1,10 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/models/film.dart';
 
-class FilmBloc extends Cubit<List<Film>> {
-  FilmBloc()
-      : super(
-            _initialFilms); // Initialisez le FilmBloc avec la trilogie du Seigneur des Anneaux
+class FilmCubit extends Cubit<List<Film>> {
+  FilmCubit() : super(_initialFilms);
 
   static final List<Film> _initialFilms = [
     Film(

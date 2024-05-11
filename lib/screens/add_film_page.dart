@@ -98,7 +98,7 @@ class _AddFilmPageState extends State<AddFilmPage> {
                         imageUrlController.text, // Récupérez l'URL de l'image
                   );
 
-                  BlocProvider.of<FilmBloc>(context).addFilm(nouveauFilm);
+                  BlocProvider.of<FilmCubit>(context).addFilm(nouveauFilm);
 
                   Navigator.pop(context);
                 }

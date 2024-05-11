@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../models/film.dart'; // Importez votre modèle de film ici
+import '../models/film.dart';
 
 class FilmDetailsPage extends StatelessWidget {
   final Film film;
   final Function(Film) onDelete;
 
-  FilmDetailsPage({required this.film, required this.onDelete});
+  const FilmDetailsPage(
+      {super.key, required this.film, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -19,33 +20,33 @@ class FilmDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 350, // Hauteur spécifique pour l'image
+              height: 350,
               child: Image.network(
                 film.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Description:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(film.description),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Notation:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text('${film.notation} étoiles'),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 onDelete(film);
                 Navigator.pop(context);
               },
-              child: Text('Supprimer ce film'),
+              child: const Text('Supprimer ce film'),
             ),
           ],
         ),

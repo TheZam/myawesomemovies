@@ -1,5 +1,3 @@
-// main.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/blocs/film_bloc.dart';
@@ -17,9 +15,8 @@ class MyApp extends StatelessWidget {
       color: PpColors.green,
       title: 'Ma Bibliothèque de Films',
       home: BlocProvider(
-        create: (context) =>
-            FilmBloc(), // Créer le FilmBloc avec la trilogie du Seigneur des Anneaux
-        child: HomePage(),
+        create: (context) => FilmCubit(),
+        child: const HomePage(),
       ),
     );
   }

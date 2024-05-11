@@ -3,25 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/blocs/film_bloc.dart';
 import 'package:flutter_projects/models/film.dart';
 import 'package:flutter_projects/screens/add_film_page.dart';
-import 'package:flutter_projects/screens/film_details_page.dart'; // Importez la page de détails ici
+import 'package:flutter_projects/screens/film_details_page.dart';
 import 'package:flutter_projects/theme/pp_colors.dart';
 
 class HomePage extends StatelessWidget {
-  late FilmBloc _filmBloc;
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _filmBloc = BlocProvider.of<FilmBloc>(context);
+    final FilmCubit filmBloc = BlocProvider.of<FilmCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: PpColors.green,
-        title: Text('Ma Bibliothèque de Films'),
+        title: const Text('Ma Bibliothèque de Films'),
       ),
-      body: BlocBuilder<FilmBloc, List<Film>>(
+      body: BlocBuilder<FilmCubit, List<Film>>(
         builder: (context, films) {
           if (films.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('Aucun film n\'a été ajouté.'),
             );
           } else {
@@ -30,34 +30,29 @@ class HomePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Ouvrir la page de détails du film et passer la fonction onDelete
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => FilmDetailsPage(
                           film: films[index],
                           onDelete: (Film film) {
-                            _filmBloc.deleteFilm(film);
+                            filmBloc.deleteFilm(film);
                           },
                         ),
                       ),
                     );
                   },
                   child: Card(
-                    child: Container(
-                      height:
-                          150, // Ajustez la hauteur souhaitée de chaque élément de la liste
+                    child: SizedBox(
+                      height: 150,
                       child: Row(
                         children: [
                           SizedBox(
-                            width:
-                                120, // Spécifiez la largeur souhaitée de l'image
-                            height: double
-                                .infinity, // Utilisez la hauteur maximale disponible
+                            width: 120,
+                            height: double.infinity,
                             child: Image.network(
                               films[index].imageUrl,
-                              fit: BoxFit
-                                  .cover, // Ajustez l'image pour couvrir la totalité du conteneur
+                              fit: BoxFit.cover,
                             ),
                           ),
                           Expanded(
@@ -68,25 +63,23 @@ class HomePage extends StatelessWidget {
                                 children: [
                                   Text(
                                     films[index].titre,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   Expanded(
                                     child: Text(
                                       films[index].description,
-                                      overflow: TextOverflow
-                                          .ellipsis, // Gérer le débordement de texte si nécessaire
-                                      maxLines:
-                                          3, // Limiter le nombre maximum de lignes pour la description
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
                                     ),
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   Text(
                                     '${films[index].notation} étoiles',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -108,13 +101,13 @@ class HomePage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => BlocProvider.value(
-                value: _filmBloc,
+                value: filmBloc,
                 child: AddFilmPage(),
               ),
             ),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
